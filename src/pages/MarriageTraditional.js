@@ -22,10 +22,13 @@ const styles = {
     fontFamily: "'Work Sans', sans-serif",
   },
   title: {
+    marginTop: "20px",
     textAlign: "center",
-    marginBottom: "10px",
-    color: "#2c3e50",
+    marginBottom: "20px",
+    color: "#ffffff",
     fontFamily: "'Work Sans', sans-serif",
+    fontSize: "28px",
+    fontWeight: "600",
   },
   subtitle: {
     textAlign: "center",

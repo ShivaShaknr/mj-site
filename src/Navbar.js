@@ -257,11 +257,12 @@ const styles = {
     fontSize: "14px",
     fontWeight: "500",
     transition: "all 0.3s ease",
-    borderBottom: "2px solid transparent",
+    // borderBottom: "2px solid transparent",
     fontFamily: "'Work Sans', sans-serif",
     whiteSpace: "nowrap",
   },
   menuButtonActive: {
+    borderBottom: "2px solid #d4749c",
     borderBottomColor: "#d4749c",
     color: "#d4749c",
   },

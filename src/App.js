@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
+import Login from "./Login";
 import InvitingGroom from "./pages/InvitingGroom";
 import Marriage from "./pages/Marriage";
 import MarriageCandid from "./pages/MarriageCandid";
@@ -11,20 +12,33 @@ const API_KEY = "AIzaSyDSBiFjswTBAabCwWcnNQO3U6QHNk7spuA";
 
 const FOLDER_IDS = {
   "inviting-groom": ["1QL6i7Hg1RtCIg0sujMSyzRQk-rDd9JMH"],
-  marriage: ["1ovT-SPUrf4CpPa7q9Oo-MKaSMPA6st2T"],
+  marriage: [
+    "17TYW09Wjp5ym2GCPxb7pSfvri4rBP6Kw",
+    "1JG2qKY1MkB5Gduq-1K-CpwyJ--rJLLq7",
+    "1o6JUVm6SEKYNkAGMf9f2qBgVWJVKetU1",
+  ],
   reception: [
     "1haDzc8R7k1Ng5EuFv0cpx6nqUe9W5CPP",
-    // "1OEMK792g73jwH41Uq981rvoeaF0lIxAw",
-    // "1QK_-qysJxafc3knArtMzeHqwAmwoqMdn",
-    // "1z3JZ3vFpGPKSipYt4BoIBqTcpj0UwWk2",
+    "1OEMK792g73jwH41Uq981rvoeaF0lIxAw",
+    "1QK_-qysJxafc3knArtMzeHqwAmwoqMdn",
+    "1z3JZ3vFpGPKSipYt4BoIBqTcpj0UwWk2",
   ],
   outdoor: ["1ovT-SPUrf4CpPa7q9Oo-MKaSMPA6st2T"],
 };
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("reception");
+
+  // Check localStorage on mount to restore login state
+  useEffect(() => {
+    const savedLoginState = localStorage.getItem("isLoggedIn");
+    if (savedLoginState === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -139,39 +153,45 @@ export default function App() {
 
   return (
     <div>
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
-      {loading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            fontFamily: "'Work Sans', sans-serif",
-            backgroundColor: "#000000",
-          }}
-        >
-          <div
-            style={{
-              width: "50px",
-              height: "50px",
-              border: "4px solid #f0f0f0",
-              borderTop: "4px solid #d4749c",
-              borderRadius: "50%",
-              animation: "spin 1s linear infinite",
-            }}
-          />
-          <style>
-            {`
-              @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-              }
-            `}
-          </style>
-        </div>
+      {!isLoggedIn ? (
+        <Login onLoginSuccess={() => setIsLoggedIn(true)} />
       ) : (
-        renderPage()
+        <>
+          <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+                fontFamily: "'Work Sans', sans-serif",
+                backgroundColor: "#000000",
+              }}
+            >
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  border: "4px solid #f0f0f0",
+                  borderTop: "4px solid #d4749c",
+                  borderRadius: "50%",
+                  animation: "spin 1s linear infinite",
+                }}
+              />
+              <style>
+                {`
+                  @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                  }
+                `}
+              </style>
+            </div>
+          ) : (
+            renderPage()
+          )}
+        </>
       )}
     </div>
   );
