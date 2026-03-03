@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Login from "./Login";
+import EventsHome from "./EventsHome";
 import InvitingGroom from "./pages/InvitingGroom";
 import Marriage from "./pages/Marriage";
 import MarriageCandid from "./pages/MarriageCandid";
@@ -13,9 +14,9 @@ const API_KEY = "AIzaSyDSBiFjswTBAabCwWcnNQO3U6QHNk7spuA";
 const FOLDER_IDS = {
   "inviting-groom": ["1QL6i7Hg1RtCIg0sujMSyzRQk-rDd9JMH"],
   marriage: [
-    "17TYW09Wjp5ym2GCPxb7pSfvri4rBP6Kw",
-    "1JG2qKY1MkB5Gduq-1K-CpwyJ--rJLLq7",
-    "1o6JUVm6SEKYNkAGMf9f2qBgVWJVKetU1",
+    "1p7Ko5D8AVk4rSszXBZ2Fkce6wzIx5tOt",
+    "1UDsdFcEnf0I1jZLO8_z7dA592RnDED8B",
+    "1emoTHqnvpXR3yvI7MyT4m4UFFZjE2Mo6",
   ],
   reception: [
     "1haDzc8R7k1Ng5EuFv0cpx6nqUe9W5CPP",
@@ -30,7 +31,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("reception");
+  const [activeTab, setActiveTab] = useState("home");
 
   // Check localStorage on mount to restore login state
   useEffect(() => {
@@ -41,6 +42,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    // Skip fetching images for the home page
+    if (activeTab === "home") {
+      setLoading(false);
+      return;
+    }
+
     const fetchImages = async () => {
       setLoading(true);
       try {
@@ -134,6 +141,8 @@ export default function App() {
 
   const renderPage = () => {
     switch (activeTab) {
+      case "home":
+        return <EventsHome setActiveTab={setActiveTab} />;
       case "inviting-groom":
         return <InvitingGroom images={images} />;
       case "marriage":
@@ -147,7 +156,7 @@ export default function App() {
       case "outdoor":
         return <Outdoor images={images} />;
       default:
-        return <Reception images={images} />;
+        return <EventsHome setActiveTab={setActiveTab} />;
     }
   };
 
@@ -157,7 +166,9 @@ export default function App() {
         <Login onLoginSuccess={() => setIsLoggedIn(true)} />
       ) : (
         <>
-          <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+          {activeTab !== "home" && (
+            <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+          )}
           {loading ? (
             <div
               style={{

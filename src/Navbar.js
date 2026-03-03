@@ -68,6 +68,15 @@ export default function Navbar({ activeTab, setActiveTab }) {
             display: isMobile ? "none" : "flex",
           }}
         >
+          <button
+            onClick={() => setActiveTab("home")}
+            style={{
+              ...styles.menuButton,
+              ...(activeTab === "home" ? styles.menuButtonActive : {}),
+            }}
+          >
+            Home
+          </button>
           {menuItems.map((item) => (
             <div key={item.id} style={styles.menuItemWrapper}>
               <button
@@ -161,6 +170,20 @@ export default function Navbar({ activeTab, setActiveTab }) {
 
             {/* Mobile Menu Items */}
             <div style={styles.mobileMenuContent}>
+              <button
+                onClick={() => {
+                  setActiveTab("home");
+                  setMobileMenuOpen(false);
+                }}
+                style={{
+                  ...styles.mobileMenuButton,
+                  ...(activeTab === "home"
+                    ? styles.mobileMenuButtonActive
+                    : {}),
+                }}
+              >
+                Home
+              </button>
               {menuItems.map((item) => (
                 <div key={item.id}>
                   <button
@@ -348,7 +371,7 @@ const styles = {
     transform: "translateX(-50%)",
     width: "90%",
     maxWidth: "90%",
-    height: "50vh",
+    height: "65vh",
     display: "flex",
     flexDirection: "column",
     paddingTop: "30px",
