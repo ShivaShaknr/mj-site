@@ -14,9 +14,9 @@ const API_KEY = "AIzaSyDSBiFjswTBAabCwWcnNQO3U6QHNk7spuA";
 const FOLDER_IDS = {
   "inviting-groom": ["1QL6i7Hg1RtCIg0sujMSyzRQk-rDd9JMH"],
   marriage: [
-    "1p7Ko5D8AVk4rSszXBZ2Fkce6wzIx5tOt",
-    "1UDsdFcEnf0I1jZLO8_z7dA592RnDED8B",
-    "1emoTHqnvpXR3yvI7MyT4m4UFFZjE2Mo6",
+    "17TYW09Wjp5ym2GCPxb7pSfvri4rBP6Kw",
+    "1JG2qKY1MkB5Gduq-1K-CpwyJ--rJLLq7",
+    "1o6JUVm6SEKYNkAGMf9f2qBgVWJVKetU1",
   ],
   reception: [
     "1haDzc8R7k1Ng5EuFv0cpx6nqUe9W5CPP",
